@@ -1,4 +1,5 @@
 <template>
+    <!-- Visualizza la domanda passata dal genitore -->
     <h1>{{ domanda }}</h1>
 </template>
 
@@ -6,8 +7,8 @@
 export default {
     props: {
         domanda: {
-            type: String,
-            required: true
+            type: String, // Definisce che 'domanda' deve essere una stringa
+            required: true // Indica che 'domanda' è obbligatorio
         }
     }
 };

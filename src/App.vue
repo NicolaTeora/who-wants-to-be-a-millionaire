@@ -18,7 +18,7 @@
       };
     },
 
-    mounted() {
+    mounted() { // al caricamento della pagina seleziona una domanda random
       this.selezionaDomandaRandom();
     },
 
@@ -30,10 +30,12 @@
           return;
         }
 
+        // pesca una domanda random
         const indiceRandom = Math.floor(Math.random() * this.domande.length);
         this.domandaCorrente = this.domande[indiceRandom];
 
         // Rimuoviamo la domanda selezionata dall'array delle domande
+        // in modo che non si ripeta
         this.domande.splice(indiceRandom, 1);
       },
 
@@ -42,6 +44,7 @@
           alert("Risposta corretta!");
           // Passa alla prossima domanda random
           this.selezionaDomandaRandom();
+
         } else {
           alert("Risposta sbagliata! Hai perso!");
           // Il gioco termina in caso di risposta sbagliata
