@@ -1,18 +1,24 @@
 <template>
     <!-- Visualizza la domanda passata dal genitore -->
-    <h1>{{ domanda }}</h1>
+    <div class="question">
+        <h1>{{ domanda }}</h1>
+    </div>
 </template>
 
 <script>
 export default {
     props: {
         domanda: {
-            type: String, // Definisce che 'domanda' deve essere una stringa
-            required: true // Indica che 'domanda' è obbligatorio
+            type: String,
+            required: true // 'domanda' è obbligatorio
         }
     }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.question {
+    padding: 1rem 0;
+}
+</style>
