@@ -18,7 +18,8 @@
       };
     },
 
-    mounted() { // al caricamento della pagina seleziona una domanda random
+    mounted() {
+      // al caricamento della pagina seleziona una domanda random
       this.selezionaDomandaRandom();
     },
 
@@ -44,14 +45,16 @@
 
       controllaRisposta(risposta) {
         if (risposta === this.domandaCorrente.rispostaCorretta) {
-          alert('Risposta Corretta!');
+          // alert('Risposta Corretta!');
           setTimeout(() => {
             this.selezionaDomandaRandom();
           }, 1500);
         } else {
           alert("Risposta sbagliata! Hai perso!");
           // Il gioco termina in caso di risposta sbagliata
-          this.domandaCorrente = null;
+          setTimeout(() => {
+            this.domandaCorrente = null;
+          }, 1500);
         }
       }
     }
@@ -62,7 +65,8 @@
 <template>
 
   <Domande v-if="domandaCorrente" :domanda="domandaCorrente.domanda" />
-  <Risposte v-if="domandaCorrente" :risposte="domandaCorrente.risposte" @selezionaRisposta="controllaRisposta" />
+  <Risposte v-if="domandaCorrente" :risposte="domandaCorrente.risposte"
+    :rispostaCorretta="domandaCorrente.rispostaCorretta" @selezionaRisposta="controllaRisposta" />
 
   <!-- Messaggio di fine gioco o schermata iniziale -->
   <p v-else>{{ domande.length === 0 ? option1 : option2 }}</p>
