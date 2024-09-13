@@ -14,6 +14,7 @@
         domande,
         option1: "Hai completato tutte le domande! Ricarica la pagina per riprovare.",
         option2: "Il gioco è terminato. Ricarica la pagina per riprovare.",
+        msgEnd: "Risposta sbagliata! Hai perso, ricarica la pagina per riprovare",
         domandaCorrente: null
       };
     },
@@ -50,11 +51,12 @@
             this.selezionaDomandaRandom();
           }, 1500);
         } else {
-          alert("Risposta sbagliata! Hai perso!");
           // Il gioco termina in caso di risposta sbagliata
           setTimeout(() => {
             this.domandaCorrente = null;
           }, 1500);
+
+          this.option2 = this.msgEnd;
         }
       }
     }
