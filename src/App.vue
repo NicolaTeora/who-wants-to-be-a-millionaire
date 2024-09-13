@@ -23,6 +23,10 @@
     },
 
     methods: {
+      test() {
+        console.log('ciao');
+      },
+
       selezionaDomandaRandom() {
         // Se non ci sono più domande, il gioco termina
         if (this.domande.length === 0) {
@@ -30,7 +34,6 @@
           return;
         }
 
-        // pesca una domanda random
         const indiceRandom = Math.floor(Math.random() * this.domande.length);
         this.domandaCorrente = this.domande[indiceRandom];
 
@@ -41,10 +44,10 @@
 
       controllaRisposta(risposta) {
         if (risposta === this.domandaCorrente.rispostaCorretta) {
-          alert("Risposta corretta!");
-          // Passa alla prossima domanda random
-          this.selezionaDomandaRandom();
-
+          alert('Risposta Corretta!');
+          setTimeout(() => {
+            this.selezionaDomandaRandom();
+          }, 1500);
         } else {
           alert("Risposta sbagliata! Hai perso!");
           // Il gioco termina in caso di risposta sbagliata
@@ -57,8 +60,9 @@
 
   
 <template>
-  <domande v-if="domandaCorrente" :domanda="domandaCorrente.domanda" />
-  <risposte v-if="domandaCorrente" :risposte="domandaCorrente.risposte" @sceltaRisposta="controllaRisposta" />
+
+  <Domande v-if="domandaCorrente" :domanda="domandaCorrente.domanda" />
+  <Risposte v-if="domandaCorrente" :risposte="domandaCorrente.risposte" @selezionaRisposta="controllaRisposta" />
 
   <!-- Messaggio di fine gioco o schermata iniziale -->
   <p v-else>{{ domande.length === 0 ? option1 : option2 }}</p>
