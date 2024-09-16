@@ -15,7 +15,9 @@
         option1: "Hai completato tutte le domande! Ricarica la pagina per riprovare.",
         option2: "Il gioco è terminato. Ricarica la pagina per riprovare.",
         msgEnd: "Risposta sbagliata! Hai perso, ricarica la pagina per riprovare",
-        domandaCorrente: null
+        domandaCorrente: null,
+        giocoIniziato: false, //Gestione schermata iniziale
+        giocoInCorso: false  // Variabile per visualizzare il contenuto del gioco dopo la transizione
       };
     },
 
@@ -25,8 +27,16 @@
     },
 
     methods: {
-      test() {
-        console.log('ciao');
+      iniziaGioco() {
+        this.giocoIniziato = true;
+        // Avvia il gioco selezionando la prima domanda
+        this.selezionaDomandaRandom();
+      },
+
+      // Questo metodo sarà chiamato dopo che la schermata iniziale è completamente scomparsa
+      avviaDomande() {
+        this.giocoInCorso = true;
+        this.selezionaDomandaRandom();
       },
 
       selezionaDomandaRandom() {
@@ -65,13 +75,23 @@
 
   
 <template>
+  <transition name="fade" @after-leave="avviaDomande()">
 
-  <Domande v-if="domandaCorrente" :domanda="domandaCorrente.domanda" />
-  <Risposte v-if="domandaCorrente" :risposte="domandaCorrente.risposte"
-    :rispostaCorretta="domandaCorrente.rispostaCorretta" @selezionaRisposta="controllaRisposta" />
+    <div v-if="!giocoIniziato" class="start-screen">
+      <h1>Chi Vuol Essere Milionario</h1>
+      <button @click="iniziaGioco">Start Game</button>
+    </div>
 
-  <!-- Messaggio di fine gioco o schermata iniziale -->
-  <p v-else>{{ domande.length === 0 ? option1 : option2 }}</p>
+    <div v-else>
+
+      <Domande v-if="domandaCorrente" :domanda="domandaCorrente.domanda" />
+      <Risposte v-if="domandaCorrente" :risposte="domandaCorrente.risposte"
+        :rispostaCorretta="domandaCorrente.rispostaCorretta" @selezionaRisposta="controllaRisposta" />
+
+      <!-- Messaggio di fine gioco o schermata iniziale -->
+      <p v-else>{{ domande.length === 0 ? option1 : option2 }}</p>
+    </div v-else>
+  </transition>
 
 </template>
 
@@ -86,5 +106,30 @@
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
+}
+
+.start-screen button {
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #45a049;
+  }
+}
+
+/* Transizione per la dissolvenza */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
