@@ -45,12 +45,13 @@ export default {
 <style scoped>
 .risposte {
     margin: 2rem auto;
-    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
 }
 
 .risposta {
     padding: 5px;
-    width: 25%;
     border: 3px solid gray;
     border-radius: 20px;
     background-color: inherit;
